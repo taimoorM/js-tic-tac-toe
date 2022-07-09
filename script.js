@@ -29,6 +29,7 @@ let playerOneTurn = true;
 let gameOver = false;
 let gameDraw = false;
 let currentPlayer = playerOne;
+addClick();
 
 function addClick() {
   for (let i = 0; i < boxes.length; i++) {
@@ -50,7 +51,8 @@ function handleClick() {
 function displayWinner(player) {
   //display winning message based on player
   const heading = document.createElement("h2");
-  heading.textContent = `${player} Wins!`;
+  const winner = player === "X" ? "Player One" : "Player Two";
+  heading.textContent = `${winner} Wins!`;
   bottomContainer.appendChild(heading);
 }
 
@@ -84,5 +86,7 @@ function resetGame() {
     boxes[i].textContent = "";
   }
   gameOver = false;
+  playerOneTurn = true;
+  addClick();
   document.querySelector("h2").style.display = "none";
 }
