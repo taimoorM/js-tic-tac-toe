@@ -1,6 +1,7 @@
 const boxes = document.querySelectorAll(".box");
 const bottomContainer = document.querySelector(".bottomContainer");
 const resetButton = document.querySelector(".resetBtn");
+const message = document.querySelector(".message");
 
 //when user clicks a box, display an x on it
 //if the box has a x or o do nothing
@@ -27,7 +28,6 @@ const winningCombinations = [
 ];
 let playerOneTurn = true;
 let gameOver = false;
-let gameDraw = false;
 let currentPlayer = playerOne;
 addClick();
 
@@ -46,14 +46,13 @@ function handleClick() {
   this.textContent = currentPlayer;
   playerOneTurn = !playerOneTurn;
   checkWin();
+  checkDraw();
 }
 
 function displayWinner(player) {
   //display winning message based on player
-  const heading = document.createElement("h2");
   const winner = player === "X" ? "Player One" : "Player Two";
-  heading.textContent = `${winner} Wins!`;
-  bottomContainer.appendChild(heading);
+  message.textContent = `${winner} Wins!`;
 }
 
 function checkWin() {
@@ -88,5 +87,19 @@ function resetGame() {
   gameOver = false;
   playerOneTurn = true;
   addClick();
-  document.querySelector("h2").style.display = "none";
+  message.textContent = "";
+}
+
+function checkDraw() {
+  let counter = 0;
+  for (let i = 0; i < boxes.length; i++) {
+    if (boxes[i].textContent) {
+      counter++;
+    }
+  }
+
+  if (counter === 9) {
+    message.textContent = "It's a Draw!";
+    removeClick();
+  }
 }
