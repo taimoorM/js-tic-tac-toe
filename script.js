@@ -1,5 +1,6 @@
 const boxes = document.querySelectorAll(".box");
 const bottomContainer = document.querySelector(".bottomContainer");
+const resetButton = document.querySelector(".resetBtn");
 
 //when user clicks a box, display an x on it
 //if the box has a x or o do nothing
@@ -29,30 +30,59 @@ let gameOver = false;
 let gameDraw = false;
 let currentPlayer = playerOne;
 
-for (let i = 0; i < boxes.length; i++) {
-  boxes[i].addEventListener("click", function () {
-    currentPlayer = playerOneTurn ? playerOne : playerTwo;
-    this.textContent = currentPlayer;
-    playerOneTurn = !playerOneTurn;
-  });
+function addClick() {
+  for (let i = 0; i < boxes.length; i++) {
+    if (!gameOver) {
+      boxes[i].addEventListener("click", handleClick, { once: true });
+    }
+  }
+}
+
+resetButton.addEventListener("click", resetGame);
+
+function handleClick() {
+  currentPlayer = playerOneTurn ? playerOne : playerTwo;
+  this.textContent = currentPlayer;
+  playerOneTurn = !playerOneTurn;
+  checkWin();
 }
 
 function displayWinner(player) {
   //display winning message based on player
-  bottomContainer.innerHTML = `<h2>${player} Wins!</h2>`;
+  const heading = document.createElement("h2");
+  heading.textContent = `${player} Wins!`;
+  bottomContainer.appendChild(heading);
 }
 
 function checkWin() {
   for (let i = 0; i < winningCombinations.length; i++) {
     const winningCombination = winningCombinations[i];
-    let a = boxes[0].textContent;
-    let b = boxes[1].textContent;
-    let c = boxes[2].textContent;
+    let a = boxes[winningCombination[0]].textContent;
+    let b = boxes[winningCombination[1]].textContent;
+    let c = boxes[winningCombination[2]].textContent;
 
     if (a || b || c) {
       if (a === b && b === c) {
         gameOver = true;
+        removeClick();
+        displayWinner(currentPlayer);
       }
     }
   }
+}
+
+function removeClick() {
+  if (gameOver) {
+    for (let i = 0; i < boxes.length; i++) {
+      boxes[i].removeEventListener("click", handleClick);
+    }
+  }
+}
+
+function resetGame() {
+  for (let i = 0; i < boxes.length; i++) {
+    boxes[i].textContent = "";
+  }
+  gameOver = false;
+  document.querySelector("h2").style.display = "none";
 }
