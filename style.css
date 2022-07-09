@@ -209,6 +209,7 @@ template {
 
 .container {
   max-width: 660px;
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -236,4 +237,18 @@ template {
   font-size: 4rem;
   border: 2px solid #c2ded1;
   cursor: pointer;
+}
+
+.bottomContainer {
+  padding: 20px;
+}
+
+.bottomContainer h2 {
+  margin-top: 20px;
+}
+
+.resetBtn {
+  padding: 5px 20px;
+  cursor: pointer;
+  margin-top: 20px;
 }
