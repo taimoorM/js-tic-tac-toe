@@ -67,6 +67,9 @@ function checkWin() {
         gameOver = true;
         removeClick();
         displayWinner(currentPlayer);
+        boxes[winningCombination[0]].classList.add("highlight");
+        boxes[winningCombination[1]].classList.add("highlight");
+        boxes[winningCombination[2]].classList.add("highlight");
       }
     }
   }
@@ -83,6 +86,7 @@ function removeClick() {
 function resetGame() {
   for (let i = 0; i < boxes.length; i++) {
     boxes[i].textContent = "";
+    boxes[i].classList.remove("highlight");
   }
   gameOver = false;
   playerOneTurn = true;
