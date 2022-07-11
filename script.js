@@ -1,15 +1,17 @@
+//Target all DOM elements
 const boxes = document.querySelectorAll(".box");
 const bottomContainer = document.querySelector(".bottomContainer");
 const resetButton = document.querySelector(".resetBtn");
 const playerStatus = document.querySelector(".playerStatus");
 
-//win Cases
+//Assign player values
+const playerOne = "X";
+const playerTwo = "O";
+//Win Combos:
 // 123, 456, 789
 // 147, 258, 369
 //159, 357
-
-const playerOne = "X";
-const playerTwo = "O";
+//Create array with winning combos
 const winningCombinations = [
   [0, 1, 2],
   [3, 4, 5],
@@ -23,8 +25,12 @@ const winningCombinations = [
 let playerOneTurn = true;
 let gameOver = false;
 let currentPlayer = playerOne;
-addClick();
 
+//Initialize game, add box click and reset button handler
+addClick();
+resetButton.addEventListener("click", resetGame);
+
+//funtion to add Event listener to box clicks
 function addClick() {
   for (let i = 0; i < boxes.length; i++) {
     if (!gameOver) {
@@ -33,8 +39,7 @@ function addClick() {
   }
 }
 
-resetButton.addEventListener("click", resetGame);
-
+//Box click handler
 function handleClick() {
   currentPlayer = playerOneTurn ? playerOne : playerTwo;
   this.textContent = currentPlayer;
@@ -46,12 +51,14 @@ function handleClick() {
   checkDraw();
 }
 
+//Function to display winner based on player
 function displayWinner(player) {
   //display winning message based on player
   const winner = player === "X" ? "Player One" : "Player Two";
   playerStatus.textContent = `${winner} Wins!`;
 }
 
+//Function to go through all winning combos and compare it o the board to see if player has won
 function checkWin() {
   for (let i = 0; i < winningCombinations.length; i++) {
     const winningCombination = winningCombinations[i];
@@ -72,6 +79,7 @@ function checkWin() {
   }
 }
 
+//Function to remove box click event listener
 function removeClick() {
   if (gameOver) {
     for (let i = 0; i < boxes.length; i++) {
@@ -80,6 +88,7 @@ function removeClick() {
   }
 }
 
+//Function to reset game to original state
 function resetGame() {
   for (let i = 0; i < boxes.length; i++) {
     boxes[i].textContent = "";
@@ -91,6 +100,7 @@ function resetGame() {
   playerStatus.textContent = "Player 1's Turn";
 }
 
+//Function to check if theres a draw and displaying message
 function checkDraw() {
   let counter = 0;
   for (let i = 0; i < boxes.length; i++) {
