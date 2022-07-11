@@ -216,6 +216,26 @@ template {
   margin: 0 auto;
   flex-direction: column;
   height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.playerBar {
+  padding: 10px;
+  border: 1px solid #354259;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.playerBar span {
+  font-weight: bold;
+}
+
+.playerBar p {
+  text-align: center;
+  margin-bottom: 0;
+  padding: 5px 0;
+  background-color: #354259;
+  color: #c2ded1;
 }
 
 .board {
@@ -233,7 +253,7 @@ template {
   justify-content: center;
   align-items: center;
   color: #c2ded1;
-  font-family: Arial, Helvetica, sans-serif;
+
   font-size: 4rem;
   border: 2px solid #c2ded1;
   cursor: pointer;

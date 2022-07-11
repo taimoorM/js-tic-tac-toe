@@ -2,13 +2,8 @@ const boxes = document.querySelectorAll(".box");
 const bottomContainer = document.querySelector(".bottomContainer");
 const resetButton = document.querySelector(".resetBtn");
 const message = document.querySelector(".message");
+const playerStatus = document.querySelector(".playerStatus");
 
-//when user clicks a box, display an x on it
-//if the box has a x or o do nothing
-//add an O to a random box on the board unless the player has 2 in a row
-//if player or computer has 3 in a row they win
-//display iif player wins or loses or draws
-//show reset button
 //win Cases
 // 123, 456, 789
 // 147, 258, 369
@@ -47,6 +42,9 @@ function handleClick() {
   playerOneTurn = !playerOneTurn;
   checkWin();
   checkDraw();
+  playerStatus.textContent = `${
+    playerOneTurn ? "Player 1's Turn" : "Player 2's Turn"
+  }`;
 }
 
 function displayWinner(player) {
