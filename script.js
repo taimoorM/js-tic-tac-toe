@@ -1,7 +1,6 @@
 const boxes = document.querySelectorAll(".box");
 const bottomContainer = document.querySelector(".bottomContainer");
 const resetButton = document.querySelector(".resetBtn");
-const message = document.querySelector(".message");
 const playerStatus = document.querySelector(".playerStatus");
 
 //win Cases
@@ -40,17 +39,17 @@ function handleClick() {
   currentPlayer = playerOneTurn ? playerOne : playerTwo;
   this.textContent = currentPlayer;
   playerOneTurn = !playerOneTurn;
-  checkWin();
-  checkDraw();
   playerStatus.textContent = `${
     playerOneTurn ? "Player 1's Turn" : "Player 2's Turn"
   }`;
+  checkWin();
+  checkDraw();
 }
 
 function displayWinner(player) {
   //display winning message based on player
   const winner = player === "X" ? "Player One" : "Player Two";
-  message.textContent = `${winner} Wins!`;
+  playerStatus.textContent = `${winner} Wins!`;
 }
 
 function checkWin() {
@@ -89,7 +88,7 @@ function resetGame() {
   gameOver = false;
   playerOneTurn = true;
   addClick();
-  message.textContent = "";
+  playerStatus.textContent = "Player 1's Turn";
 }
 
 function checkDraw() {
@@ -101,7 +100,7 @@ function checkDraw() {
   }
 
   if (counter === 9) {
-    message.textContent = "It's a Draw!";
+    playerStatus.textContent = "It's a Draw!";
     removeClick();
   }
 }
