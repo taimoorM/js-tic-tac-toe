@@ -27,16 +27,16 @@ let gameOver = false;
 let currentPlayer = playerOne;
 
 //Initialize game, add box click and reset button handler
-addClick();
-resetButton.addEventListener("click", resetGame);
+init();
 
-//funtion to add Event listener to box clicks
-function addClick() {
+//function to add Event listener to box clicks
+function init() {
   for (let i = 0; i < boxes.length; i++) {
     if (!gameOver) {
       boxes[i].addEventListener("click", handleClick, { once: true });
     }
   }
+  resetButton.addEventListener("click", resetGame);
 }
 
 //Box click handler
@@ -62,18 +62,18 @@ function displayWinner(player) {
 function checkWin() {
   for (let i = 0; i < winningCombinations.length; i++) {
     const winningCombination = winningCombinations[i];
-    let a = boxes[winningCombination[0]].textContent;
-    let b = boxes[winningCombination[1]].textContent;
-    let c = boxes[winningCombination[2]].textContent;
+    let boxOne = boxes[winningCombination[0]].textContent;
+    let boxTwo = boxes[winningCombination[1]].textContent;
+    let boxThree = boxes[winningCombination[2]].textContent;
 
-    if (a || b || c) {
-      if (a === b && b === c) {
+    if (boxOne || boxTwo || boxThree) {
+      if (boxOne === boxTwo && boxTwo === boxThree) {
         gameOver = true;
         removeClick();
         displayWinner(currentPlayer);
-        boxes[winningCombination[0]].classList.add("highlight");
-        boxes[winningCombination[1]].classList.add("highlight");
-        boxes[winningCombination[2]].classList.add("highlight");
+        winningCombination.forEach((num) => {
+          boxes[num].classList.add("highlight");
+        });
       }
     }
   }
@@ -96,8 +96,8 @@ function resetGame() {
   }
   gameOver = false;
   playerOneTurn = true;
-  addClick();
   playerStatus.textContent = "Player 1's Turn";
+  init();
 }
 
 //Function to check if theres a draw and displaying message
