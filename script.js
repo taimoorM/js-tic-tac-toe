@@ -33,7 +33,7 @@ let playerOneTurn = true;
 let gameOver = false;
 let currentPlayer = playerOne;
 
-//Initialize game, add box click and reset button handler
+//Initialize game
 init();
 
 //function to add Event listener to box clicks
@@ -83,6 +83,7 @@ function checkWin() {
         removeClick();
         displayWinner(currentPlayer);
         modal.style.display = "block";
+        playerStatus.textContent = "Game Over!";
         winningCombination.forEach((num) => {
           boxes[num].classList.add("highlight");
         });
@@ -123,7 +124,7 @@ function checkDraw() {
   if (counter === 9) {
     modalText.textContent = "It's a Draw!";
     modal.style.display = "block";
-
+    playerStatus.textContent = "Game Over!";
     removeClick();
   }
 }
