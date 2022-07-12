@@ -2,7 +2,11 @@
 const boxes = document.querySelectorAll(".box");
 const bottomContainer = document.querySelector(".bottomContainer");
 const resetButton = document.querySelector(".resetBtn");
+const playAgain = document.querySelector(".playAgainBtn");
 const playerStatus = document.querySelector(".playerStatus");
+const modal = document.querySelector(".modalContainer");
+const modalText = document.querySelector(".modalText");
+const modalClose = document.querySelector(".closeBtn");
 
 //Assign player values
 const playerOne = "X";
@@ -37,6 +41,10 @@ function init() {
     }
   }
   resetButton.addEventListener("click", resetGame);
+  modalClose.addEventListener("click", handleCloseClick);
+  playAgain.addEventListener("click", resetGame);
+  playerStatus.textContent = "Player 1's Turn";
+  modal.style.display = "none";
 }
 
 //Box click handler
@@ -55,7 +63,7 @@ function handleClick() {
 function displayWinner(player) {
   //display winning message based on player
   const winner = player === "X" ? "Player One" : "Player Two";
-  playerStatus.textContent = `${winner} Wins!`;
+  modalText.textContent = `${winner} Wins!`;
 }
 
 //Function to go through all winning combos and compare it o the board to see if player has won
@@ -71,6 +79,7 @@ function checkWin() {
         gameOver = true;
         removeClick();
         displayWinner(currentPlayer);
+        modal.style.display = "block";
         winningCombination.forEach((num) => {
           boxes[num].classList.add("highlight");
         });
@@ -96,7 +105,6 @@ function resetGame() {
   }
   gameOver = false;
   playerOneTurn = true;
-  playerStatus.textContent = "Player 1's Turn";
   init();
 }
 
@@ -110,7 +118,14 @@ function checkDraw() {
   }
 
   if (counter === 9) {
-    playerStatus.textContent = "It's a Draw!";
+    modalText.textContent = "It's a Draw!";
+    modal.style.display = "block";
+
     removeClick();
   }
+}
+
+//function to handle modal close
+function handleCloseClick() {
+  modal.style.display = "none";
 }
