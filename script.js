@@ -1,3 +1,6 @@
+//Simple JS Tic Tac Toe game.
+//Inspired by: https://www.codebrainer.com/blog/tic-tac-toe-javascript-game
+
 //Target all DOM elements
 const boxes = document.querySelectorAll(".box");
 const bottomContainer = document.querySelector(".bottomContainer");
